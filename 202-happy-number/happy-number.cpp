@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int getNext(int n) {
+    int nextNumber(int n) {
         int sum = 0;
 
         while (n > 0) {
@@ -13,16 +13,14 @@ public:
     }
 
     bool isHappy(int n) {
-        unordered_set<int> seen;
+        int slow = n;
+        int fast = nextNumber(n);
 
-        while (n != 1) {
-            if (seen.count(n))
-                return false;
-
-            seen.insert(n);
-            n = getNext(n);
+        while (fast != 1 && slow != fast) {
+            slow = nextNumber(slow);
+            fast = nextNumber(nextNumber(fast));
         }
 
-        return true;
+        return fast == 1;
     }
 };
